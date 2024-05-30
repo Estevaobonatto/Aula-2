@@ -1,37 +1,34 @@
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+
 public class UDPServer {
 
-    /**
-     * Método principal do servidor UDP.
-     * Recebe mensagens de um cliente UDP em loop.
-     * @param args - Parâmetros de linha de comando (não utilizados)
-     */
-    public static void main(String[] args){
-        // Define a porta do servidor
+    public static void main(String[] args) {
         int serverPort = 9876;
-        try{
-            // Cria um socket UDP para receber as mensagens
+        try {
             DatagramSocket serverSocket = new DatagramSocket(serverPort);
-            // Cria um array para receber os dados do pacote UDP
             byte[] receivedData = new byte[1024];
-            // Loop infinito para receber mensagens
-            while(true){
-                // Cria um pacote UDP para receber os dados
+            while (true) {
                 DatagramPacket receivedPacket = new DatagramPacket(receivedData, receivedData.length);
-                // Recebe o pacote UDP do cliente
                 serverSocket.receive(receivedPacket);
-                // Converte os dados recebidos para uma string
                 String receivedMessage = new String(receivedPacket.getData());
-                // Imprime a mensagem recebida
                 System.out.println("Mensagem recebida! " + receivedMessage);
+
+                //parte 2
+
+                InetAddress clientIPAddress = receivedPacket.getAddress();
+                int clientPort = receivedPacket.getPort();
+                String responseMessage = "Mensagem de resposta";
+
+                byte[] sendData = responseMessage.getBytes();
+                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, clientIPAddress, clientPort);
+                serverSocket.send(sendPacket);
             }
-        }catch(Exception e){
-            // Imprime qualquer exceção que ocorra durante a comunicação
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-
 }
+
