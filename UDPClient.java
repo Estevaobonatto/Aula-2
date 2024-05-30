@@ -1,6 +1,7 @@
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import javax.swing.JOptionPane;
 
 public class UDPClient {
     public static void main(String[] args) {
@@ -22,7 +23,7 @@ public class UDPClient {
             clientSocket.receive(receivePacket);
 
             String responseMessage = new String(receivePacket.getData());
-            System.out.println("Mensagem de resposta: " + responseMessage);
+            JOptionPane.showMessageDialog(null, "Mensagem Enviada: " + responseMessage);
 
             clientSocket.close();
         } catch (Exception e) {

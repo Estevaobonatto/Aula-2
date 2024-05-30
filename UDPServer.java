@@ -1,6 +1,7 @@
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import javax.swing.JOptionPane;
 
 public class UDPServer {
 
@@ -13,7 +14,7 @@ public class UDPServer {
                 DatagramPacket receivedPacket = new DatagramPacket(receivedData, receivedData.length);
                 serverSocket.receive(receivedPacket);
                 String receivedMessage = new String(receivedPacket.getData());
-                System.out.println("Mensagem recebida! " + receivedMessage);
+                JOptionPane.showMessageDialog(null, "Mensagem recebida: " + receivedMessage);
 
                 //parte 2
 
